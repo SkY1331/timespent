@@ -9,7 +9,7 @@ class Timer extends React.Component {
   }
 
   componentDidMount(){
-    this.interval = setInterval(this.updateReminderTime.bind(this), 10000)
+    this.interval = setInterval(this.updateReminderTime.bind(this), 3000)
   }
 
   componentWillUnmount(){

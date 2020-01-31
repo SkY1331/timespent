@@ -1,17 +1,32 @@
 import React, { PureComponent } from 'react';
 import { Row, Col, Button, Typography } from 'antd'
 
+import {Loading} from './Errors'
+
 import Chart from './Chart'
 
 export default class Example extends PureComponent {
   state={
     newData:[],
     data: this.props.data,
-    from: 86400
+    from: 86400,
+    isLoaded: false,
   }
+
 
   componentDidMount(){
     this.loadData()
+    this.interval = setInterval(this.updateReminderTime.bind(this), 3000)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+
+  updateReminderTime(){
+    if(this.state.data !== this.props.data){
+      this.loadData()
+    }
   }
 
   changeFrom = (amount) => {
@@ -54,11 +69,13 @@ export default class Example extends PureComponent {
         {category:'personnel', som:somPersonnel},
         {category:'obligation', som:somObligation},
         {category:'perdu', som:somPerdu},
-      ]
+      ],
+      isLoaded:true,
     })
   }
 
   render() {
+    const {isLoaded, newData } = this.state
     return (
       <div>
       <Row type="flex" justify="space-between">
@@ -66,15 +83,19 @@ export default class Example extends PureComponent {
           <Typography.Title level={4}>Vos statistiques</Typography.Title>
         </Col>
         <Col>
-          <Button onClick={() => this.changeFrom(86400)} disabled={this.state.from===86400} >24 heure</Button>
+          <Button onClick={() => this.changeFrom(86400)} disabled={this.state.from===86400} >24 heures</Button>
           <Button onClick={() => this.changeFrom(172800)} disabled={this.state.from===172800}>48 heures</Button>
           <Button onClick={() => this.changeFrom(604800)} disabled={this.state.from===604800}>7 jours</Button>
           <Button onClick={() => this.changeFrom(2419200)} disabled={this.state.from===2419200}>1 mois</Button>
         </Col>
       </Row>
+      {isLoaded ?
         <div style={{ width: '100%', height: 250 }}>
-          <Chart data={this.state.newData}/>
+          <Chart data={newData}/>
         </div>
+        :
+        <Loading title="Récupération du Graphique"/>
+      }
       </div>
     );
   }

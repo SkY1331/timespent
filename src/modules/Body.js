@@ -12,6 +12,7 @@ class Body extends React.Component {
   state={
     isLoaded:false,
     last:{},
+    historics:[]
   }
 
   callData = () => {
@@ -65,7 +66,6 @@ class Body extends React.Component {
           id:id,
         },
       })
-      message.success('Statut mis à jour')
     }else{
       db.collection('historics').doc(String(newDate)).set({
         date: firebase.firestore.Timestamp.fromDate(new Date()),
@@ -81,11 +81,21 @@ class Body extends React.Component {
           id:newDate
         }
       })
-      message.success('Statut mis à jour')
     }
+    this.state.historics.push({
+      category:category,
+      date:{
+        seconds:newDate,
+      },
+      spent: dateStart ? newDate - dateStart : 0,
+      id:newDate,
+      uid:uid
+    })
+    message.success('Statut mis à jour')
   }
 
   render(){
+    console.log(this.state);
     const { last, historics, isLoaded } = this.state
     const { user } = this.props
     if(isLoaded){
@@ -96,10 +106,10 @@ class Body extends React.Component {
           <Timer pre="Quelle à été votre dernière activité ? " dueDate={last.date} disabled={true}/>
         }
           <Button style={{marginTop:'25px'}} onClick={() => this.updateCategory('travail', last.id, last.date, last.spent, last.category, user.uid)} block>Travail {last.category==="travail" && <Icon type="sync" spin />}</Button>
-          <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('dormir', last.id, last.date, last.spent, last.category, user.uid)} block>Temps de Récupération {last.category==="dormir" && <Icon type="sync" spin />}</Button>
+          <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('dormir', last.id, last.date, last.spent, last.category, user.uid)} block>Temps de Récupération (dormir){last.category==="dormir" && <Icon type="sync" spin />}</Button>
           <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('obligation', last.id, last.date, last.spent, last.category, user.uid)} block>Temps Obligatoire {last.category==="obligation" && <Icon type="sync" spin />}</Button>
           <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('personnel', last.id, last.date, last.spent, last.category, user.uid)} block>Temps Personnel {last.category==="personnel" && <Icon type="sync" spin />}</Button>
-          <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('perdu', last.id, last.date, last.spent, last.category, user.uid)} block>Temps Perdu {last.category==="perdu" && <Icon type="sync" spin />}</Button>
+          <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('perdu', last.id, last.date, last.spent, last.category, user.uid)} block>Temps Perdu{last.category==="perdu" && <Icon type="sync" spin />}</Button>
 
           <Divider/>
           <DataToChart data={historics} />
