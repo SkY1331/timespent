@@ -3,11 +3,8 @@ import { Row, Col, Button, Typography, List } from 'antd'
 
 import {Loading} from './Errors'
 
-import Chart from './Chart'
-
 export default class Example extends PureComponent {
   state={
-    newData:[],
     data: this.props.data,
     from: 86400,
     isLoaded: false,
@@ -24,7 +21,7 @@ export default class Example extends PureComponent {
 
   render() {
     console.log(this.state);
-    const {isLoaded, newData, data } = this.state
+    const {isLoaded, data } = this.state
     return (
       <div>
       <Row type="flex" justify="space-between">
