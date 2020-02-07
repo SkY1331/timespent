@@ -21,7 +21,6 @@ class App extends React.Component {
   }
 
   render(){
-    console.log(this.props);
     const { user, signOut, error } = this.props
     if(!error){
       return (

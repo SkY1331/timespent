@@ -41,7 +41,7 @@ const HeaderMaster = ({user, signInWithGoogle, signOut}) => {
             - le temps perdu, <br/>
             - et le temps de récupération.<br/>
             </Text>
-            <Title level={4}>Déterminez dans quel temps vous êtes, pour mieux le métriser !</Title>
+            <Title level={4}>Déterminez dans quel temps vous êtes, pour mieux le maîtriser !</Title>
           </Col>
           <Col xs={24} md={12}>
             <img width="100%" title="Exemple de statistiques" alt='Exemple de statistiques' src="http://timespent.fr/stats.png"/>

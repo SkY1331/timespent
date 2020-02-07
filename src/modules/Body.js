@@ -7,6 +7,7 @@ import { db } from '../config'
 
 import Timer from './timer'
 import DataToChart from './dataToChart'
+import DataToHistorics from './dataToHistorics'
 
 class Body extends React.Component {
   state={
@@ -112,7 +113,9 @@ class Body extends React.Component {
           <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('perdu', last.id, last.date, last.spent, last.category, user.uid)} block>Temps Perdu{last.category==="perdu" && <Icon type="sync" spin />}</Button>
 
           <Divider/>
-          <DataToChart data={historics} />
+          {historics ? <DataToChart data={historics} /> : <center><p>Aucune graphique à afficher pour le moment</p></center>}
+          {/*<Divider/>
+          <DataToHistorics data={historics} />*/}
         </div>
       )
     } else {
