@@ -1,23 +1,27 @@
 import React from 'react'
 import {Row, Col, Button, Avatar, Icon, Typography} from 'antd'
+import { Loading } from './Errors'
 
 const { Title, Text } = Typography
 
-const HeaderMaster = ({user, signInWithGoogle, signOut}) => {
-  if(user){
-    return(
-      <Row>
-        <Col style={{textAlign:'center'}}>
-          <Avatar src={user.photoURL} size={64}/>
-        </Col>
-        <Col style={{textAlign:'center'}}>
-          <Title level={3} style={{marginTop:'5px', marginBottom:'0px'}}>Votre activité {user.displayName}</Title>
-        </Col>
-        <Col style={{textAlign:'center'}}>
-          <Button onClick={() => signOut()} type="link">(déconnexion)</Button>
-        </Col>
-      </Row>
-    )
+const HeaderMaster = ({isLog, user, signInWithGoogle, signOut}) => {
+  console.log(isLog);
+  if(isLog){
+    if(user){
+      return(
+        <Row>
+          <Col style={{textAlign:'center'}}>
+            <Avatar src={user ? user.photoURL : 'icon'} size={64}/>
+          </Col>
+          <Col style={{textAlign:'center'}}>
+            <Title level={3} style={{marginTop:'5px', marginBottom:'0px'}}>Votre activité {user ? user.displayName : '...'}</Title>
+          </Col>
+          <Col style={{textAlign:'center'}}>
+            <Button onClick={() => signOut()} type="link">(déconnexion)</Button>
+          </Col>
+        </Row>
+      )
+    }else { return <Loading title="Chargement des Informations ..." />}
   }else{
   return(
     <Row>

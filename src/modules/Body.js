@@ -113,9 +113,13 @@ class Body extends React.Component {
           <Button style={{marginTop:'5px'}} onClick={() => this.updateCategory('perdu', last.id, last.date, last.spent, last.category, user.uid)} block>Temps Perdu{last.category==="perdu" && <Icon type="sync" spin />}</Button>
 
           <Divider/>
-          {historics ? <DataToChart data={historics} /> : <center><p>Aucune graphique à afficher pour le moment</p></center>}
-          {/*<Divider/>
-          <DataToHistorics data={historics} />*/}
+          {historics ?
+            <div>
+              <DataToChart data={historics} />
+              <Divider/>
+              <DataToHistorics data={historics} />
+            </div>
+          : <center><p>Aucune graphique à afficher pour le moment</p></center>}
         </div>
       )
     } else {

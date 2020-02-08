@@ -1,5 +1,4 @@
 import React from 'react'
-
 import moment from 'moment'
 import 'moment/locale/fr'
 
@@ -26,7 +25,7 @@ class Timer extends React.Component {
     return(
       <div>
         {this.props.pre && this.props.pre}
-        {!(this.props.diabled) && this.state.reminderTime}
+        {!(this.props.disabled) && this.state.reminderTime}
         {this.props.post && this.props.post}
       </div>
     )

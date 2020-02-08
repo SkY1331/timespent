@@ -1,23 +1,23 @@
 import React, { PureComponent } from 'react';
-import { Row, Col, Button, Typography, List } from 'antd'
+import { Row, Col, Button, Typography, List, Icon, message } from 'antd'
+
+import moment from 'moment'
+import secondsToHms from './secondsToHms'
 
 import {Loading} from './Errors'
 
 export default class Example extends PureComponent {
   state={
-    data: this.props.data,
+    data: this.props.data.slice(0, 7),
     from: 86400,
     isLoaded: false,
   }
 
-
-  changeFrom = (amount) => {
+  /*changeFrom = (amount) => {
     this.setState({
       from: amount
     })
-  }
-
-
+  }*/
 
   render() {
     console.log(this.state);
@@ -28,27 +28,25 @@ export default class Example extends PureComponent {
         <Col>
           <Typography.Title level={4}>Votre historique</Typography.Title>
         </Col>
-        <Col>
+        {/*<Col>
           <Button onClick={() => this.changeFrom(86400)} disabled={this.state.from===86400} >24 heures</Button>
           <Button onClick={() => this.changeFrom(172800)} disabled={this.state.from===172800}>48 heures</Button>
           <Button onClick={() => this.changeFrom(604800)} disabled={this.state.from===604800}>7 jours</Button>
           <Button onClick={() => this.changeFrom(2419200)} disabled={this.state.from===2419200}>1 mois</Button>
-        </Col>
+        </Col>*/}
       </Row>
       {!isLoaded ?
-        <div style={{ width: '100%', height: 250 }}>
         <List
           size="small"
-          header={<div>Header</div>}
           bordered
           dataSource={data}
           renderItem={item =>
             <List.Item
-            actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
-            >{item.category}</List.Item>
+            actions={[<Button onClick={() => message.loading('Cette fonction n\'est pas encore disponible')} type='link' key="edit"><Icon style={{color:'blue'}} type="edit" /></Button>,
+              <Button onClick={() => message.loading('Cette fonction n\'est pas encore disponible')} type='link' key="delete"><Icon style={{color:'red'}} type="delete" /></Button>]}
+            ><i>{moment.unix(item.date.seconds).format('DD-MM HH:mm')}</i> | <b>{item.category}</b> - durée {secondsToHms(item.spent)}</List.Item>
           }
           />
-        </div>
         :
         <Loading title="Récupération de l'historique"/>
       }

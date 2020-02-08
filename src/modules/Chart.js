@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from 'recharts';
 
+import secondsToHms from './secondsToHms'
+
 const data = [
   { name: 'Group A', value: 400 },
   { name: 'Group B', value: 300 },
@@ -25,17 +27,6 @@ const renderActiveShape = (props) => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
-  function secondsToHms(d) {
-      d = Number(d);
-      var h = Math.floor(d / 3600);
-      var m = Math.floor(d % 3600 / 60);
-      /*var s = Math.floor(d % 3600 % 60);*/
-
-      var hDisplay = h > 0 ? h + (h === 1 ? " h, " : " h, ") : "";
-      var mDisplay = m > 0 ? m + (m === 1 ? " m " : " m ") : "";
-      /*var sDisplay = s > 0 ? s + (s === 1 ? " s" : " s") : "";*/
-      return hDisplay + mDisplay /*+ sDisplay;*/
-  }
 
   return (
     <g>

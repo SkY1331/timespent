@@ -12,22 +12,42 @@ import HeaderMaster from './modules/Header'
 import Body from './modules/Body'
 
 class App extends React.Component {
-  login = () => {
-    this.props.signInWithGoogle()
+  state={
+    isLog: false
+  }
+
+  componentDidMount(){
+    this.setState({
+      isLog : localStorage.getItem('isLog') ? localStorage.getItem('isLog') : 'false'
+    })
+  }
+
+  login = async () => {
     message.loading('Connexion')
-    if(this.props.error){
-      message.error(this.props.error)
+    try {
+      await this.props.signInWithGoogle()
+      localStorage.setItem('isLog', 'true')
+    } catch (e) {
+      message.error(e, this.props.error)
     }
+    this.setState({isLog: true})
+  }
+
+  logout = () => {
+    this.props.signOut()
+    localStorage.setItem('isLog', 'false')
+    this.setState({isLog: false})
   }
 
   render(){
-    const { user, signOut, error } = this.props
+    const { isLog } = this.state
+    const { user, error } = this.props
     if(!error){
       return (
       <div>
       <Row type="flex" justify="space-around" style={{marginTop:"50px"}} gutter={8}>
         <Col xs={22} sm={22} md={18} lg={16} xl={12} xxl={10} style={{backgroundColor:"#e8e8e8de", borderRadius:"10px", padding:"15px"}}>
-          <HeaderMaster user={user} signInWithGoogle={() => this.login()} signOut={signOut}/>
+          <HeaderMaster user={user} isLog={isLog} signInWithGoogle={() => this.login()} signOut={() => this.logout()}/>
           {user && <Body user={user}/>}
         </Col>
       </Row>
