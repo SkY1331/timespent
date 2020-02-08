@@ -13,6 +13,27 @@ export default class Example extends PureComponent {
     isLoaded: false,
   }
 
+  componentDidMount(){
+    this.loadData()
+    this.interval = setInterval(this.updateReminderTime.bind(this), 3000)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+
+  updateReminderTime(){
+    if(this.state.data !== this.props.data){
+      this.loadData()
+    }
+  }
+
+  loadData = (props) => {
+    this.setState({
+      data: this.props.data.slice(0,7)
+    })
+  }
+
   /*changeFrom = (amount) => {
     this.setState({
       from: amount
@@ -20,7 +41,6 @@ export default class Example extends PureComponent {
   }*/
 
   render() {
-    console.log(this.state);
     const {isLoaded, data } = this.state
     return (
       <div>

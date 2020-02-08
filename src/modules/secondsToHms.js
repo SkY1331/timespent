@@ -1,6 +1,3 @@
-import React from 'react'
-import {Row, Col, Button} from 'antd'
-
 const secondsToHms = (d) => {
   d = Number(d);
   var h = Math.floor(d / 3600);
