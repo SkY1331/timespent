@@ -4,7 +4,7 @@ import {Row, Col, message} from 'antd'
 import {NoMatchPage} from './modules/Errors'
 import {Bg} from './modules/background.js'
 
-import firebase from "firebase"
+import firebase from "firebase/app"
 import withFirebaseAuth from 'react-with-firebase-auth'
 import { firebaseAppAuth } from './config'
 
