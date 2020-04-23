@@ -5,8 +5,6 @@ import { Loading } from './Errors'
 const { Title, Text } = Typography
 
 const HeaderMaster = ({isLog, user, signInWithGoogle, signOut}) => {
-  console.log('isLog:', isLog);
-  console.log('user:', user)
   if(isLog === 'true'){
     if(user){
       return(

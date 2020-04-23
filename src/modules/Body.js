@@ -96,7 +96,6 @@ class Body extends React.Component {
   }
 
   render(){
-    console.log(this.state);
     const { last, historics, isLoaded } = this.state
     const { user } = this.props
     if(isLoaded){

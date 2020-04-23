@@ -42,7 +42,6 @@ class App extends React.Component {
   render(){
     const { isLog } = this.state
     const { user, error } = this.props
-    console.log('user:', user);
     if(!error){
       return (
       <div>
