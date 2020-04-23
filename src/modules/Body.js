@@ -2,7 +2,7 @@ import React from 'react'
 import {Button, Icon, message, Divider} from 'antd'
 import { Loading } from './Errors'
 
-import firebase from "firebase"
+import firebase from "firebase/app"
 import { db } from '../config'
 
 import Timer from './timer'

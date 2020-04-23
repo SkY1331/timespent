@@ -13,12 +13,12 @@ import Body from './modules/Body'
 
 class App extends React.Component {
   state={
-    isLog: false
+    isLog: 'false'
   }
 
   componentDidMount(){
     this.setState({
-      isLog : localStorage.getItem('isLog') ? localStorage.getItem('isLog') : 'false'
+      isLog : localStorage.getItem('isLog') ? localStorage.getItem('isLog') : false
     })
   }
 
@@ -30,18 +30,19 @@ class App extends React.Component {
     } catch (e) {
       message.error(e, this.props.error)
     }
-    this.setState({isLog: true})
+    this.setState({isLog: 'true'})
   }
 
   logout = () => {
     this.props.signOut()
     localStorage.setItem('isLog', 'false')
-    this.setState({isLog: false})
+    this.setState({isLog: 'false'})
   }
 
   render(){
     const { isLog } = this.state
     const { user, error } = this.props
+    console.log('user:', user);
     if(!error){
       return (
       <div>
@@ -51,7 +52,7 @@ class App extends React.Component {
           {user && <Body user={user}/>}
         </Col>
       </Row>
-      <Row style={{}}>
+      <Row>
         <Col style={{textAlign:'center', marginTop:'5px'}}>
           TimeSpent.fr 2020 | <a href="https://github.com/SkY1331/timespent">Github</a> | <a href='mailto:lulu.tag@hotmail.fr'>Contact</a>
         </Col>
